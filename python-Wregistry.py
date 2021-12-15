@@ -4,9 +4,6 @@ import os
 import errno
 choise = int(input("Quelle exercice : 1 startup programme : 2 bloquer USB ; 3 Lister les Wifi : "))
 
-    
-    
-
 if choise == 1:
     
     reg_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Run',0, winreg.KEY_SET_VALUE)
