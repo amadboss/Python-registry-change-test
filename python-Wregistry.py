@@ -15,7 +15,7 @@ def Persistence():
 
 def WifiList():
     #TODO
-    print("Liste des WIFI qui ce sont deja connecter à cette machine :blush:
+    print("Liste des WIFI qui ce sont deja connecter à cette machine")
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles", 0, winreg.KEY_READ)
     for i in range(0, winreg.QueryInfoKey(key)[0]):
         skey_name = winreg.EnumKey(key, i)
