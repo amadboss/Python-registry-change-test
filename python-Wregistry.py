@@ -2,7 +2,7 @@ import winreg
 import ctypes
 
 
-choice = int(input("Quelle exercice : 1 startup programme : 2 bloquer USB ; 3 Lister les Wifi : "))
+choice = input("Quelle exercice : 1 startup programme : 2 bloquer USB ; 3 Lister les Wifi : ")
 
 
 
@@ -15,7 +15,7 @@ def Persistence():
 
 def WifiList():
     #TODO
-    print("Liste des WIFI qui ce sont deja connecter à cette machine :")
+    print("Liste des WIFI qui ce sont deja connecter à cette machine :blush:
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles", 0, winreg.KEY_READ)
     for i in range(0, winreg.QueryInfoKey(key)[0]):
         skey_name = winreg.EnumKey(key, i)
@@ -38,11 +38,11 @@ def UsbBlock():
         winreg.SetValueEx(reg_key, 'start', 1, winreg.REG_DWORD, 4)
 
 
-if choice == 1:
+if choice == '1':
     Persistence()
 
-if choice == 3:
+if choice == '3':
     WifiList()
 
-if choice == 2:
+if choice == '2':
     UsbBlock()
