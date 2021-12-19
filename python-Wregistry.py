@@ -1,24 +1,21 @@
 import winreg
 import ctypes
-import os
-import errno
-choise = int(input("Quelle exercice : 1 startup programme : 2 bloquer USB ; 3 Lister les Wifi : "))
 
-if choise == 1:
-    
+
+choice = int(input("Quelle exercice : 1 startup programme : 2 bloquer USB ; 3 Lister les Wifi : "))
+
+
+
+
+def Persistence():
+    #TODO
     reg_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Run',0, winreg.KEY_SET_VALUE)
     with reg_key:
         winreg.SetValueEx(reg_key, 'calc', 0, winreg.REG_SZ, '"C:\Windows\System32\calc.exe"')
 
-if choise == 2:
-    
-    reg_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,r'SYSTEM\CurrentControlSet\Services\USBSTOR',0,winreg.KEY_SET_VALUE)
-    with reg_key:
-        winreg.SetValueEx(reg_key, 'start', 1, winreg.REG_DWORD, 4)
-
-if choise == 3:
-    
-    print("Liste of WIFI qui ce sont deja connecter a cette machine :")
+def WifiList():
+    #TODO
+    print("Liste des WIFI qui ce sont deja connecter à cette machine :")
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles", 0, winreg.KEY_READ)
     for i in range(0, winreg.QueryInfoKey(key)[0]):
         skey_name = winreg.EnumKey(key, i)
@@ -28,9 +25,24 @@ if choise == 3:
             b = winreg.QueryValueEx(skey, 'NameType')[0]
             if b == 71:
                 print(a)
-        except OSError as e:
-            if e.errno == errno.ENOENT:
-                pass
+        except Exception as e:
+            ctypes.windll.user32.MessageBoxW(None, e, u"Fatal Error", 0)
+            pass
         finally:
             skey.Close()
-    
+
+def UsbBlock():
+    #TODO
+    reg_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,r'SYSTEM\CurrentControlSet\Services\USBSTOR',0,winreg.KEY_SET_VALUE)
+    with reg_key:
+        winreg.SetValueEx(reg_key, 'start', 1, winreg.REG_DWORD, 4)
+
+
+if choice == 1:
+    Persistence()
+
+if choice == 3:
+    WifiList()
+
+if choice == 2:
+    UsbBlock()
